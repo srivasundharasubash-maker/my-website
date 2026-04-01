@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter & Verse | Modern Bookshop</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,300&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        /* --- CSS VARIABLES & RESET --- */
+        :root {
+            --primary-brown: #4E342E;
+            --secondary-brown: #795548;
+            --accent-gold: #D4AF37;
+            --bg-cream: #FDFBF7;
+            --bg-white: #FFFFFF;
+            --text-dark: #2C2C2C;
+            --text-light: #757575;
+            --shadow: 0 4px 15px rgba(0,0,0,0.08);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-cream);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Merriweather', serif;
+            color: var(--primary-brown);
+        }
+
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
+        img { max-width: 100%; display: block; }
+
+        /* --- NAVIGATION --- */
+        header {
+            background: var(--bg-white);
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 1rem 5%;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-brown);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--secondary-brown);
+        }
+
+        .nav-icons {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .cart-icon {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: var(--accent-gold);
+            color: white;
+            font-size: 0.7rem;
+            padding: 2px 6px;
+            border-radius: 50%;
+        }
+
+        .menu-toggle {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            height: 85vh;
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1507842217121-9e93c8aaf27c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            padding: 0 20px;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            font-weight: 300;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: var(--accent-gold);
+            color: white;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background: #bfa140;
+            transform: translateY(-3px);
+        }
+
+        /* --- SEARCH BAR --- */
+        .search-container {
+            background: var(--bg-white);
+            padding: 2rem 5%;
+            display: flex;
+            justify-content: center;
+            margin-top: -50px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .search-box {
+            display: flex;
+            width: 100%;
+            max-width: 600px;
+            box-shadow: var(--shadow);
+            border-radius: 50px;
+            overflow: hidden;
+        }
+
+        .search-box input {
+            flex: 1;
+            padding: 15px 25px;
+            border: none;
+            outline: none;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .search-box button {
+            background: var(--primary-brown);
+            color: white;
+            border: none;
+            padding: 0 25px;
+            cursor: pointer;
+            font-size: 1.1rem;
+        }
+
+        /* --- ABOUT SECTION --- */
+        .about {
+            padding: 5rem 10%;
+            text-align: center;
+            background: var(--bg-white);
+        }
+
+        .about h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .about p {
+            max-width: 800px;
+            margin: 0 auto;
+            color: var(--text-light);
+            font-size: 1.1rem;
+        }
+
+        /* --- CATEGORIES --- */
+        .categories {
+            padding: 5rem 5%;
+            text-align: center;
+        }
+
+        .section-title {
+            margin-bottom: 3rem;
+            font-size: 2.2rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 50%;
+            height: 3px;
+            background: var(--accent-gold);
+            margin: 10px auto 0;
+        }
+
+        .cat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 2rem;
+        }
+
+        .cat-card {
+            background: var(--bg-white);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .cat-card:hover {
+            transform: translateY(-10px);
+            background: var(--primary-brown);
+        }
+
+        .cat-card:hover h3, .cat-card:hover i {
+            color: white;
+        }
+
+        .cat-card i {
+            font-size: 2.5rem;
+            color: var(--secondary-brown);
+            margin-bottom: 1rem;
+            transition: var(--transition);
+        }
+
+        /* --- BOOKS GRID & FEATURED --- */
+        .books-section {
+            padding: 5rem 5%;
+            background: #F7F3EF;
+        }
+
+        .book-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .book-card {
+            background: var(--bg-white);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .book-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+        }
+
+        .book-img {
+            height: 300px;
+            width: 100%;
+            object-fit: cover;
+        }
+
+        .book-info {
+            padding: 1.5rem;
+        }
+
+        .book-category {
+            font-size: 0.8rem;
+            color: var(--accent-gold);
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        .book-title {
+            font-size: 1.1rem;
+            margin: 5px 0;
+            font-weight: 600;
+        }
+
+        .book-author {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            margin-bottom: 10px;
+        }
+
+        .book-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 15px;
+        }
+
+        .price {
+            font-weight: 700;
+            color: var(--primary-brown);
+            font-size: 1.1rem;
+        }
+
+        .add-btn {
+            background: var(--bg-cream);
+            color: var(--primary-brown);
+            border: 1px solid var(--primary-brown);
+            padding: 5px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .add-btn:hover {
+            background: var(--primary-brown);
+            color: white;
+        }
+
+        /* --- CONTACT SECTION --- */
+        .contact {
+            padding: 5rem 5%;
+            background: var(--bg-white);
+        }
+
+        .contact-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .contact-info, .contact-form {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            gap: 15px;
+        }
+
+        .info-item i {
+            font-size: 1.5rem;
+            color: var(--accent-gold);
+        }
+
+        form input, form textarea {
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        form textarea {
+            height: 150px;
+            resize: none;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background: var(--primary-brown);
+            color: var(--bg-cream);
+            padding: 4rem 5% 1rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-col h3 {
+            color: var(--accent-gold);
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-col ul li a:hover {
+            color: var(--accent-gold);
+        }
+
+        .social-icons a {
+            font-size: 1.5rem;
+            margin-right: 15px;
+            transition: var(--transition);
+        }
+
+        .social-icons a:hover {
+            color: var(--accent-gold);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.9rem;
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 768px) {
+            .nav-links {
+                position: absolute;
+                top: 70px;
+                right: -100%;
+                background: var(--bg-white);
+                width: 100%;
+                flex-direction: column;
+                align-items: center;
+                padding: 2rem 0;
+                box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+                transition: 0.4s;
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+            
+            .search-container {
+                margin-top: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <nav>
+            <div class="logo">
+                <i class="fas fa-book-open"></i> Chapter & Verse
+            </div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#categories">Categories</a></li>
+                <li><a href="#books">Books</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div class="nav-icons">
+                <a href="#" class="btn" style="padding: 8px 15px; font-size: 0.9rem;">Login</a>
+                <div class="cart-icon" onclick="alert('Cart functionality coming soon!')">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count">0</span>
+                </div>
+                <div class="menu-toggle" onclick="toggleMenu()">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>Discover Your Next Favorite Book</h1>
+            <p>A cozy corner for students, readers, and book lovers everywhere.</p>
+            <a href="#books" class="btn">Browse Collection</a>
+        </div>
+    </section>
+
+    <!-- Search Bar -->
+    <div class="search-container">
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="Search by title or author..." onkeyup="filterBooks()">
+            <button><i class="fas fa-search"></i></button>
+        </div>
+    </div>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <h2>About Our Bookshop</h2>
+        <p>Welcome to Chapter & Verse. We are more than just a bookstore; we are a community hub dedicated to the love of reading. Our mission is to connect readers with stories that inspire, educate, and entertain. Whether you are a student looking for textbooks or a dreamer seeking a new world in fiction, our shelves are stocked with passion and curated with care.</p>
+    </section>
+
+    <!-- Categories -->
+    <section class="categories" id="categories">
+        <h2 class="section-title">Browse Categories</h2>
+        <div class="cat-grid">
+            <div class="cat-card">
+                <i class="fas fa-feather-alt"></i>
+                <h3>Fiction</h3>
+            </div>
+            <div class="cat-card">
+                <i class="fas fa-book"></i>
+                <h3>Non-Fiction</h3>
+            </div>
+            <div class="cat-card">
+                <i class="fas fa-graduation-cap"></i>
+                <h3>Educational</h3>
+            </div>
+            <div class="cat-card">
+                <i class="fas fa-child"></i>
+                <h3>Kids</h3>
+            </div>
+            <div class="cat-card">
+                <i class="fas fa-comic-book"></i>
+                <h3>Comics</h3>
+            </div>
+            <div class="cat-card">
+                <i class="fas fa-scroll"></i>
+                <h3>Novels</h3>
+            </div>
+        </div>
+    </section>
+
+    <!-- Books Section (Featured & Popular) -->
+    <section class="books-section" id="books">
+        <h2 class="section-title">Featured & Best Sellers</h2>
+        <div class="book-grid" id="bookGrid">
+            <!-- Book 1 -->
+            <div class="book-card">
+                <img src="https://images.unsplash.com/photo-1544947950-fa07a98d237f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Book Cover" class="book-img">
+                <div class="book-info">
+                    <span class="book-category">Fiction</span>
+                    <h3 class="book-title">The Silent Echo</h3>
+                    <p class="book-author">by Sarah Jenkins</p>
+                    <div class="book-footer">
+                        <span class="price">$15.99</span>
+                        <button class="add-btn" onclick="addToCart()">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Book 2 -->
+            <div class="book-card">
+                <img src="https://images.unsplash.com/photo-1512820790803-83ca734da794?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Book Cover" class="book-img">
+                <div class="book-info">
+                    <span class="book-category">Educational</span>
+                    <h3 class="book-title">Modern Physics</h3>
+                    <p class="book-author">by Dr. A. Smith</p>
+                    <div class="book-footer">
+                        <span class="price">$45.00</span>
+                        <button class="add-btn" onclick="addToCart()">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Book 3 -->
+            <div class="book-card">
+                <img src="https://images.unsplash.com/photo-1589829085413-56de8ae18c73?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Book Cover" class="book-img">
+                <div class="book-info">
+                    <span class="book-category">Novel</span>
+                    <h3 class="book-title">Midnight Garden</h3>
+                    <p class="book-author">by Emily Rose</p>
+                    <div class="book-footer">
+                        <span class="price">$12.50</span>
+                        <button class="add-btn" onclick="addToCart()">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Book 4 -->
+            <div class="book-card">
+                <img src="https://images.unsplash.com/photo-1543002588-bfa74002ed7e?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Book Cover" class="book-img">
+                <div class="book-info">
+                    <span class="book-category">Comics</span>
+                    <h3 class="book-title">Hero's Journey</h3>
+                    <p class="book-author">by Marvel Studios</p>
+                    <div class="book-footer">
+                        <span class="price">$22.00</span>
+                        <button class="add-btn" onclick="addToCart()">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <h2 class="section-title">Get In Touch</h2>
+        <div class="contact-container">
+            <div class="contact-info">
+                <div class="info-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <p>123 Library Lane, Booktown, NY 10012</p>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-phone"></i>
+                    <p>+1 (555) 123-4567</p>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-envelope"></i>
+                    <p>hello@chapterandverse.com</p>
+                </div>
+                <p style="margin-top: 20px; color: #757575;">
+                    Have a question about a specific book or want to order in bulk? Send us a message!
+                </p>
+            </div>
+            <div class="contact-form">
+                <form onsubmit="event.preventDefault(); alert('Message sent! We will contact you shortly.');">
+                    <input type="text" placeholder="Your Name" required>
+                    <input type="email" placeholder="Your Email" required>
+                    <textarea placeholder="Your Message"></textarea>
+                    <button type="submit" class="btn">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-col">
+                <h3>Chapter & Verse</h3>
+                <p>Your trusted partner in finding the perfect read. Join our community of book lovers today.</p>
+            </div>
+            <div class="footer-col">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#books">Shop Books</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Follow Us</h3>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            &copy; 2023 Chapter & Verse Bookshop. All Rights Reserved.
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Mobile Menu Toggle
+        function toggleMenu() {
+            const navLinks = document.getElementById('navLinks');
+            navLinks.classList.toggle('active');
+        }
+
+        // Close mobile menu when a link is clicked
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('navLinks').classList.remove('active');
+            });
+        });
+
+        // Simple Cart Logic
+        let cartCount = 0;
+        function addToCart() {
+            cartCount++;
+            document.querySelector('.cart-count').innerText = cartCount;
+            
+            // Simple visual feedback
+            const btn = event.target;
+            const originalText = btn.innerText;
+            btn.innerText = "Added!";
+            btn.style.backgroundColor = "#4E342E";
+            btn.style.color = "white";
+            
+            setTimeout(() => {
+                btn.innerText = originalText;
+                btn.style.backgroundColor = ""; // Reset to CSS default
+                btn.style.color = "";
+            }, 1000);
+        }
+
+        // Search Functionality
+        function filterBooks() {
+            const input = document.getElementById('searchInput');
+            const filter = input.value.toUpperCase();
+            const grid = document.getElementById('bookGrid');
+            const cards = grid.getElementsByClassName('book-card');
+
+            for (let i = 0; i < cards.length; i++) {
+                const title = cards[i].getElementsByClassName('book-title')[0];
+                const author = cards[i].getElementsByClassName('book-author')[0];
+                
+                if (title || author) {
+                    const titleValue = title.textContent || title.innerText;
+                    const authorValue = author.textContent || author.innerText;
+                    
+                    if (titleValue.toUpperCase().indexOf(filter) > -1 || authorValue.toUpperCase().indexOf(filter) > -1) {
+                        cards[i].style.display = "";
+                    } else {
+                        cards[i].style.display = "none";
+                    }
+                }
+            }
+        }
+    </script>
+</body>
+</html>
